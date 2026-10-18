@@ -42,6 +42,7 @@ builder.Services.AddAuthentication(opt =>
             ClockSkew = TimeSpan.Zero,
         };
     //Newupdate
+    //Suiiiiii
     });
 // Add services to the container.
 
