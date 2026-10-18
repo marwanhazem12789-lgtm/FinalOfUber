@@ -28,7 +28,7 @@ namespace FinalOfUber.Models
                 FullName = "Mohamed Ashraf",
                 Password = "123456",
                 Phone = "01096857067",
-                Role= " Admin"
+                Role= "Admin"
                 
             },
             new User
@@ -38,7 +38,7 @@ namespace FinalOfUber.Models
                 FullName = "Maro Ashraf",
                 Password = "123456",
                 Phone = "01096857067",
-                Role = " Driver"
+                Role = "Driver"
 
             });
 

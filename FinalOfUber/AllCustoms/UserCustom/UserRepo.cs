@@ -27,6 +27,8 @@ namespace FinalOfUber.AllCustoms.UserCustom
             {
                 throw new Exception();
             }
+
+
             if(e.Password == dto.Password)
             {
                 return Tokenn(e);
@@ -48,24 +50,28 @@ namespace FinalOfUber.AllCustoms.UserCustom
         }
         private string Tokenn(User u)
         {
-            var claima = new List<Claim>()
+            var cc = new List<Claim>()
             {
-                new Claim("Name" , u.FullName),
-                new Claim("Email" , u.Email),
-               new Claim(ClaimTypes.Role, u.Role)
+                new Claim(ClaimTypes.Name,u.FullName),
+                new Claim(ClaimTypes.Email , u.Email),
+                new Claim(ClaimTypes.Role , u.Role)
             };
             var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(c["JWT:Key"]));
-            var sii = new SigningCredentials(Key, SecurityAlgorithms.HmacSha256);
-            var t = new JwtSecurityToken(
-                issuer: c["JWT:Issuer"],
-                audience: c["JWT:Audience"],
-                expires: DateTime.Now.AddHours(6),
-                signingCredentials : sii,
-                claims : claima
 
+
+            var ss = new SigningCredentials(Key,SecurityAlgorithms.HmacSha256);
+
+
+            var t = new JwtSecurityToken(
+                issuer : c["JWT:Issuer"],
+                audience : c["JWT:Audience"],
+                expires : DateTime.Now.AddHours(6),
+                claims : cc,
+                signingCredentials : ss
                 );
-            var token = new JwtSecurityTokenHandler().WriteToken(t);
-            return token;
+            var Token = new JwtSecurityTokenHandler().WriteToken(t);
+            return Token;
+
 
         }
     }

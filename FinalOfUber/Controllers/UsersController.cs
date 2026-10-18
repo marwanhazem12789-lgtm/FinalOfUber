@@ -2,6 +2,7 @@
 using FinalOfUber.DTOs.UserDTOs;
 using FinalOfUber.Models;
 using FinalOfUber.UnitOfWorks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,16 +33,20 @@ namespace FinalOfUber.Controllers
             var e = await _unitofwork.User.Search(Name);
             return Ok(e);
         }
+
+
         [HttpPost("Login")]
+       
         public async Task<IActionResult> Login(LoginDTOs dto)
         {
             var e = await _unitofwork.User.Login(dto);
             if(e== null)
             {
-                return NotFound();
+                return Unauthorized();
             }
             return Ok(e);
         }
+
         [HttpPost("Register")]
         public async Task<IActionResult> Create(RegisterDTOs dto)
         {
@@ -49,7 +54,9 @@ namespace FinalOfUber.Controllers
             {
                 return BadRequest();
             }
+
             var r = mapper.Map<User>(dto);
+
             await _unitofwork.User.Add(r);
             await _unitofwork.Save();
             return Created("",r);
